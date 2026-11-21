@@ -11,5 +11,9 @@ public interface SupplementRepository {
 
     Optional<Supplement> findById(Long id);
 
+    List<Supplement> findByCategory(String category);
+
     Supplement save(Supplement supplement);
+
+    boolean deleteById(Long id);
 }

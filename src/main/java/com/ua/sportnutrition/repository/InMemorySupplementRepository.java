@@ -27,11 +27,23 @@ public class InMemorySupplementRepository implements SupplementRepository {
     }
 
     @Override
+    public List<Supplement> findByCategory(String category) {
+        return storage.values().stream()
+                .filter(s -> category.equalsIgnoreCase(s.getCategory()))
+                .toList();
+    }
+
+    @Override
     public Supplement save(Supplement supplement) {
         if (supplement.getId() == null) {
             supplement.setId(sequence.incrementAndGet());
         }
         storage.put(supplement.getId(), supplement);
         return supplement;
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        return storage.remove(id) != null;
     }
 }
